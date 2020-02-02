@@ -11,6 +11,7 @@ public class Client {
     private String c_Prenume;
     @Id
     private String cnp;
+
     private String serie_Buletin;
     private String c_nr_Telefon;
     private String c_Street;
