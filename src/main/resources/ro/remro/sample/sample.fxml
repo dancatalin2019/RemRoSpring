@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="1300.0" minHeight="-Infinity" minWidth="1200.0" prefHeight="400.0"
+      prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="ro.remro.sample.Controller">
+
+    <children>
+        <MenuBar fx:id="menuBarPrincipal" maxWidth="1200.0" minWidth="1200.0" prefHeight="39.0" prefWidth="1200.0">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem fx:id="mnuItemLogin" mnemonicParsing="false" onAction="#openLogInWindow"
+                                  text="Login"/>
+                        <MenuItem mnemonicParsing="false" text="Close"/>
+                        <MenuItem fx:id="tabLogOut" mnemonicParsing="false" onAction="#logoutUser" text="Logout"/>
+                    </items>
+                </Menu>
+                <Menu fx:id="mnuAddToDataBase" mnemonicParsing="false" text="Add to DataBase">
+                    <items>
+                        <MenuItem fx:id="mnuItemAddOwner" mnemonicParsing="false" onAction="#openTabAddOwner"
+                                  text="Add Owner"/>
+                        <MenuItem fx:id="mnuItemAddRemorca" mnemonicParsing="false" onAction="#openTabAddRemorca"
+                                  text="Add Remorca"/>
+                        <MenuItem fx:id="menuItemAddCar" mnemonicParsing="false" onAction="#openTabAddCar"
+                                  text="Add Car"/>
+                        <MenuItem mnemonicParsing="false" text="Add Driver"/>
+                        <MenuItem fx:id="menuItemAddClient" mnemonicParsing="false" onAction="#openTabAddClient"
+                                  text="Add Client"/>
+                    </items>
+                </Menu>
+                <Menu fx:id="menuRemoveDataBase" mnemonicParsing="false" text="Remove from DataBase">
+                    <items>
+                        <MenuItem fx:id="menuItemRemoveRemorca" mnemonicParsing="false" onAction="#openTabDeleteRemorca"
+                                  text="Remove Remorca"/>
+                        <MenuItem fx:id="menuItemRemoveCar" mnemonicParsing="false" text="Remove Car"/>
+                        <MenuItem fx:id="menuItemRemoveDriver" mnemonicParsing="false" text="Remove Driver"/>
+                        <MenuItem fx:id="menuItemRemoveClient" mnemonicParsing="false" text="Remove Client"/>
+                    </items>
+                </Menu>
+                <Menu fx:id="menuUpdateMySql" mnemonicParsing="false" text="Update in MySQL">
+                    <items>
+                        <MenuItem fx:id="menuItemUpdateRemorca" mnemonicParsing="false" text="Update Remorca"/>
+                        <MenuItem fx:id="menuItemUpdateCar" mnemonicParsing="false" text="Update Car"/>
+                        <MenuItem fx:id="menuItemUpdateDriver" mnemonicParsing="false" text="Update Driver"/>
+                        <MenuItem fx:id="menuItemUpdateClientandOwner" mnemonicParsing="false"
+                                  onAction="#openTabUpdateClientandOwner" text="Update ClientandOwner"/>
+                        <MenuItem fx:id="menuItemUpdateOwner" mnemonicParsing="false" onAction="#openTabUpdateOwner"
+                                  text="Update Owner"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Show Verification Date">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="End Date for Technical Verficatio"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About"/>
+                    </items>
+                </Menu>
+            </menus>
+            <effect>
+                <Blend>
+                    <topInput>
+                        <Lighting>
+                            <bumpInput>
+                                <Shadow/>
+                            </bumpInput>
+
+                        </Lighting>
+                    </topInput>
+                </Blend>
+            </effect>
+        </MenuBar>
+        <TabPane fx:id="tabPane" layoutX="1.0" layoutY="38.0" prefHeight="363.0" prefWidth="1200.0"
+                 tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab fx:id="tabAddOwner" text="Add Owner">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <Label fx:id="lblOwnerName" layoutX="35.0" layoutY="31.0" text="Owner Name"/>
+                                <Label fx:id="lblOwnerSurname" layoutX="35.0" layoutY="59.0" text="Owner Surname"/>
+                                <Label fx:id="lblOwnerCity" layoutX="35.0" layoutY="85.0" text="Owner City"/>
+                                <Label fx:id="lblOwnerStreet" layoutX="35.0" layoutY="113.0" text="Owner Street"/>
+                                <Label fx:id="lblOwnerHouseNr" layoutX="35.0" layoutY="150.0" text="Owner House nr"/>
+                                <Label fx:id="lblOwnerBI" layoutX="35.0" layoutY="178.0" prefHeight="17.0"
+                                       prefWidth="62.0" text="Owner B.I."/>
+                                <Label fx:id="lblOwnerCNP" layoutX="35.0" layoutY="204.0" text="Owner CNP"/>
+                                <Label fx:id="lblOwnerPhone" layoutX="35.0" layoutY="234.0" text="Owner Phone"/>
+                                <TextField fx:id="txtOwnerName" layoutX="180.0" layoutY="27.0"/>
+                                <TextField fx:id="txtOwnerSurname" layoutX="180.0" layoutY="55.0"/>
+                                <TextField fx:id="txtOwnerCity" layoutX="180.0" layoutY="81.0"/>
+                                <TextField fx:id="txtOwnerStreet" layoutX="180.0" layoutY="109.0"/>
+                                <TextField fx:id="txtOwnerHouseNr" layoutX="180.0" layoutY="146.0"/>
+                                <TextField fx:id="txtOwnerBI" layoutX="180.0" layoutY="174.0"/>
+                                <TextField fx:id="txtOwnerCNP" layoutX="180.0" layoutY="200.0"/>
+                                <TextField fx:id="txtAddOwnerPhone" layoutX="180.0" layoutY="230.0"/>
+                                <Button fx:id="btnSaveOwnerMySQL" layoutX="189.0" layoutY="270.0"
+                                        mnemonicParsing="false" onAction="#saveOwnerinMySQL"
+                                        text="Save Owner in MySQL"/>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab fx:id="tabLogin" text="Login">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="318.0" prefWidth="369.0">
+                            <children>
+                                <PasswordField fx:id="pswfield" layoutX="115.0" layoutY="100.0"/>
+                                <TextField fx:id="txtfieldUserName" layoutX="115.0" layoutY="52.0"/>
+                                <Label fx:id="lblName" layoutX="14.0" layoutY="52.0" prefHeight="39.0" prefWidth="97.0"
+                                       text="User Name"/>
+                                <Label fx:id="lblPasswaor" layoutX="14.0" layoutY="106.0" prefHeight="27.0"
+                                       prefWidth="96.0" text="Password"/>
+                                <Button fx:id="btnLogin" layoutX="130.0" layoutY="140.0" mnemonicParsing="false"
+                                        onAction="#loginUser" prefHeight="39.0" prefWidth="120.0" text="Login"/>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab fx:id="tabMain" text="ro.Main">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="334.0" prefWidth="643.0">
+                            <children>
+                                <TextField fx:id="txtFieldCarNumber" layoutX="98.0" layoutY="132.0" prefHeight="39.0"
+                                           prefWidth="143.0" AnchorPane.bottomAnchor="163.0"
+                                           AnchorPane.leftAnchor="98.0" AnchorPane.rightAnchor="959.0"
+                                           AnchorPane.topAnchor="132.0"/>
+                                <Label fx:id="lbCarNumber" layoutX="24.0" layoutY="148.0" text="Car Number"
+                                       AnchorPane.rightAnchor="1111.0"/>
+                                <TextField fx:id="txtFieldMaxWeigth" layoutX="98.0" layoutY="179.0" prefHeight="39.0"
+                                           prefWidth="144.0"/>
+                                <Label fx:id="lbMaxWeigth" layoutX="24.0" layoutY="188.0" text="Max Weigth"/>
+                                <ComboBox fx:id="comboBoxCarNumber" editable="true" layoutX="125.0" layoutY="12.0"
+                                          onAction="#getSelectedRemorca" onKeyReleased="#bringfromMySql"
+                                          prefHeight="39.0" prefWidth="103.0"/>
+                                <Label fx:id="lblSelectCarNumber" layoutX="4.0" layoutY="22.0" prefHeight="17.0"
+                                       prefWidth="116.0" text="Select Car Number" textFill="#69488c">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                </Label>
+                                <TextField fx:id="txtFieldUtilWeigth1" layoutX="97.0" layoutY="224.0" prefHeight="39.0"
+                                           prefWidth="145.0"/>
+                                <Label fx:id="lbUtilWeigth1" layoutX="24.0" layoutY="233.0" text="Util Weigth"/>
+                                <ComboBox fx:id="comboBoxClientCNP" editable="true" layoutX="369.0" layoutY="10.0"
+                                          onAction="#getSelectedClient" onKeyReleased="#bringfromMySqlClient"
+                                          prefHeight="39.0" prefWidth="133.0"/>
+                                <Label fx:id="lblSelectCNPClient" layoutX="242.0" layoutY="22.0" prefHeight="20.0"
+                                       prefWidth="131.0" text="Select Client CNP" textFill="#69488c">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                </Label>
+                                <TextField fx:id="txtFieldClientSurname" layoutX="373.0" layoutY="134.0"
+                                           prefHeight="39.0" prefWidth="143.0"/>
+                                <Label fx:id="lblClientName" layoutX="275.0" layoutY="234.0" text="Client Name"/>
+                                <TextField fx:id="txtFieldNumeClient" layoutX="373.0" layoutY="226.0" prefHeight="39.0"
+                                           prefWidth="144.0"/>
+                                <Label fx:id="lblClientphone" layoutX="268.0" layoutY="195.0" text="Client phone"/>
+                                <TextField fx:id="txtFieldClientPhone" layoutX="372.0" layoutY="178.0" prefHeight="39.0"
+                                           prefWidth="145.0"/>
+                                <Label fx:id="lbClientSurname" layoutX="270.0" layoutY="143.0" text="Client Surname"/>
+                                <Button fx:id="btnGenerateContract" layoutX="567.0" layoutY="15.0"
+                                        mnemonicParsing="false" prefHeight="39.0" prefWidth="122.0"
+                                        text="Generate Contract" textFill="#5016ce">
+                                    <font>
+                                        <Font name="System Bold Italic" size="12.0"/>
+                                    </font>
+                                </Button>
+                                <TextField fx:id="txtfieldSeriBIClient" layoutX="373.0" layoutY="273.0"
+                                           prefHeight="39.0" prefWidth="147.0"/>
+                                <Label fx:id="lblSerieBIClient" layoutX="275.0" layoutY="278.0" prefHeight="23.0"
+                                       prefWidth="63.0" text="Serie Nr BI"/>
+                            </children>
+                            <effect>
+                                <ColorAdjust/>
+                            </effect>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab fx:id="tabAdaugClient" text="Adaug Client">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <Label fx:id="lblNumeClient" layoutX="30.0" layoutY="26.0" text="Nume Client"/>
+                                <Label fx:id="lblPrenumeClient" layoutX="30.0" layoutY="64.0" text="Prenume Client"/>
+                                <TextField fx:id="txtNumeClient" layoutX="154.0" layoutY="22.0"/>
+                                <TextField fx:id="txtPrenumeClient" layoutX="154.0" layoutY="60.0"/>
+                                <Button fx:id="btnSaveClient" layoutX="373.0" layoutY="89.0" mnemonicParsing="false"
+                                        onAction="#saveClient" text="Save Client"/>
+                                <TextField fx:id="txtSerieBuletin" layoutX="153.0" layoutY="120.0"/>
+                                <Label fx:id="lblSerieBuletin" layoutX="32.0" layoutY="124.0" prefHeight="17.0"
+                                       prefWidth="75.0" text="Serie Buletin"/>
+                                <Label fx:id="lblCNPClient" layoutX="34.0" layoutY="93.0" text="CNP Client"/>
+                                <Label fx:id="lblTelClient" layoutX="31.0" layoutY="155.0" prefHeight="17.0"
+                                       prefWidth="94.0" text="Telefon Client"/>
+                                <TextField fx:id="txtCNPClient" layoutX="154.0" layoutY="89.0"/>
+                                <TextField fx:id="txtTelClient" layoutX="154.0" layoutY="151.0"/>
+                                <Label fx:id="lblStreetClient" layoutX="31.0" layoutY="187.0" prefHeight="17.0"
+                                       prefWidth="94.0" text="Street Client"/>
+                                <TextField fx:id="txtStreetClient" layoutX="153.0" layoutY="183.0"/>
+                                <Label fx:id="lblCityClient" layoutX="31.0" layoutY="224.0" prefHeight="17.0"
+                                       prefWidth="94.0" text="City  Client"/>
+                                <TextField fx:id="txtCityClient" layoutX="153.0" layoutY="220.0"/>
+                                <Label fx:id="lblHouseNrClient" layoutX="31.0" layoutY="256.0" prefHeight="17.0"
+                                       prefWidth="94.0" text="House Nr  Client"/>
+                                <TextField fx:id="txtHouseNrClient" layoutX="153.0" layoutY="252.0"/>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab fx:id="tabAdaugCar" text="Adaug Car">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <Label fx:id="lblCarNumber" layoutX="30.0" layoutY="51.0" text="Car Number"/>
+                                <Label fx:id="lblCarRegNr" layoutX="30.0" layoutY="89.0" text="Car Registration Nr"/>
+                                <TextField fx:id="txtCarNumber" layoutX="154.0" layoutY="47.0"/>
+                                <TextField fx:id="txtCarRegNr" layoutX="154.0" layoutY="85.0"/>
+                                <Button fx:id="btnSaveCar" layoutX="180.0" layoutY="225.0" mnemonicParsing="false"
+                                        onAction="#saveCar" prefHeight="39.0" prefWidth="79.0" text="Save Car"/>
+                                <TextField fx:id="txtCarOem" layoutX="153.0" layoutY="120.0"/>
+                                <Label fx:id="lblCarOem" layoutX="32.0" layoutY="124.0" prefHeight="17.0"
+                                       prefWidth="75.0" text="Car OEM"/>
+                                <Label fx:id="lblDataVerificare" layoutX="34.0" layoutY="159.0" text="Data Verificare"/>
+                                <TextField fx:id="txtDataVerificare" layoutX="154.0" layoutY="155.0"/>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab fx:id="tabDeleteREmorca" text="Delete Remorca">
+                    <content>
+                        <AnchorPane fx:id="anchorPaneDelRemorca" minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                                    prefWidth="200.0">
+                            <children>
+                                <Label fx:id="lblSelectDelCar" layoutX="26.0" layoutY="26.0" prefHeight="27.0"
+                                       prefWidth="214.0" text="Select the remorca to Delete :" textFill="#270cb1">
+                                    <font>
+                                        <Font size="13.0"/>
+                                    </font>
+                                </Label>
+                                <ComboBox fx:id="cmbCartoDelete" editable="true" layoutX="227.0" layoutY="27.0"
+                                          onAction="#getSelectedRemorcaforDelete"
+                                          onKeyReleased="#bringfromMySqlforDelete" prefWidth="150.0"/>
+                                <Label fx:id="lblthisremwillbedeleted" layoutX="26.0" layoutY="71.0" prefHeight="27.0"
+                                       prefWidth="198.0" text="This is the remorca to be deleted :" textFill="#270cb1">
+                                    <font>
+                                        <Font size="13.0"/>
+                                    </font>
+                                </Label>
+                                <TextField fx:id="txtRemorcadeleted" layoutX="227.0" layoutY="72.0" prefHeight="25.0"
+                                           prefWidth="152.0"/>
+                                <Button fx:id="btnDeleteRemorca" layoutX="234.0" layoutY="130.0" mnemonicParsing="false"
+                                        onAction="#deleteRemorcaByNrImatriculare" prefHeight="58.0" prefWidth="140.0"
+                                        text="DELETE REMORCA" textFill="#c90e0e"/>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab fx:id="tabUpdateClientandOwner" text="Update Client and Owner">
+                    <content>
+                        <AnchorPane fx:id="tabAnchorPaneUpdateClientandOwner" minHeight="0.0" minWidth="0.0"
+                                    prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <ComboBox fx:id="comboCNPClientUpdate" editable="true" layoutX="131.0" layoutY="14.0"
+                                          onAction="#selectClientUpdateTel"
+                                          onKeyReleased="#bringMySQLCNPClinetforTelupdate" prefWidth="150.0"/>
+                                <Label fx:id="lblCNPClientUpdate" layoutX="22.0" layoutY="18.0" prefHeight="17.0"
+                                       prefWidth="102.0" text="Select CNP Client"/>
+                                <Label fx:id="lblNumeClientUpdate" layoutX="22.0" layoutY="57.0" prefHeight="17.0"
+                                       prefWidth="89.0" text="Nume Client"/>
+                                <Label fx:id="lblPrenumeClientUpdate" layoutX="22.0" layoutY="90.0"
+                                       text="Prenume Client"/>
+                                <TextField fx:id="txtNumeClientUpdate" layoutX="132.0" layoutY="53.0"/>
+                                <TextField fx:id="txtPrenumeClientUpdate" layoutX="132.0" layoutY="86.0"/>
+                                <TextField fx:id="txtTelActualClient" layoutX="132.0" layoutY="116.0"/>
+                                <Button fx:id="btnUpdateTelClient" layoutX="343.0" layoutY="14.0"
+                                        mnemonicParsing="false" onAction="#updateTelClient" prefHeight="25.0"
+                                        prefWidth="141.0" text="Update Telefon Client"/>
+                                <Label fx:id="lblTelactualClient" layoutX="22.0" layoutY="129.0" prefHeight="17.0"
+                                       prefWidth="84.0" text="Telefon Actual"/>
+                                <Label layoutX="19.0" layoutY="154.0" text="New Phone Number"/>
+                                <TextField fx:id="txtTelClientUpdated" layoutX="133.0" layoutY="154.0"/>
+                                <Label layoutX="19.0" layoutY="191.0" text="New Street Name"/>
+                                <TextField fx:id="txtStreetCleintUpdate" layoutX="132.0" layoutY="187.0"/>
+                                <Label layoutX="20.0" layoutY="223.0" text="New House Nr"/>
+                                <TextField fx:id="txtHousNrCllientUpdate" layoutX="132.0" layoutY="219.0"/>
+                                <Label layoutX="20.0" layoutY="255.0" text="New BI"/>
+                                <TextField fx:id="txtBICllientUpdate" layoutX="131.0" layoutY="251.0"/>
+                                <Label layoutX="20.0" layoutY="285.0" text="New City"/>
+                                <TextField fx:id="txtCityCllientUpdate" layoutX="131.0" layoutY="289.0"/>
+                                <Button fx:id="btnUpdateHouseNrClient" layoutX="343.0" layoutY="86.0"
+                                        mnemonicParsing="false" onAction="#updateHouseNrClient"
+                                        text="Update House Nr Client"/>
+                                <Button fx:id="btnUpdateStreetClient" layoutX="343.0" layoutY="50.0"
+                                        mnemonicParsing="false" onAction="#updateStreetClient" prefHeight="25.0"
+                                        prefWidth="141.0" text="Update Street Client"/>
+                                <Button fx:id="btnUpdateBIClient" layoutX="343.0" layoutY="125.0"
+                                        mnemonicParsing="false" onAction="#updateBIClient" prefHeight="25.0"
+                                        prefWidth="143.0" text="Update BI Client"/>
+                                <Button fx:id="btnUpdateCityClient" layoutX="343.0" layoutY="164.0"
+                                        mnemonicParsing="false" onAction="#updateCityClient" prefHeight="25.0"
+                                        prefWidth="142.0" text="Update City Client"/>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab fx:id="tabAdaugRemorca" text="Adaug Remorca">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <TextField fx:id="txtNrnmatriculareRem" layoutX="159.0" layoutY="38.0"/>
+                                <TextField fx:id="txtMasaUtilaRem" layoutX="159.0" layoutY="73.0"/>
+                                <TextField fx:id="txtMasaMaximaRem" layoutX="159.0" layoutY="109.0"/>
+                                <TextField fx:id="txtModelRem" layoutX="159.0" layoutY="142.0"/>
+                                <Label fx:id="lblNrInmatriculare" layoutX="62.0" layoutY="42.0"
+                                       text="Nr Inmatriculare"/>
+                                <Label fx:id="lblMasaUtile" layoutX="73.0" layoutY="77.0" text="Masa Utila"/>
+                                <Label fx:id="lblMasaMaxima" layoutX="73.0" layoutY="113.0" text="Masa Maxima"/>
+                                <Label fx:id="lblModel" layoutX="89.0" layoutY="146.0" text="Model"/>
+                                <Button fx:id="btnSaveRemorca" layoutX="177.0" layoutY="192.0" mnemonicParsing="false"
+                                        onAction="#saveRemorcainMySQL" text="Save Remorca">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                </Button>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab fx:id="tabUpdateOwner" text="Update Owner">
+                    <content>
+                        <AnchorPane fx:id="tabAnchorPaneUpdateOwner" minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                                    prefWidth="200.0">
+                            <children>
+                                <ComboBox fx:id="comboCNPOwnerUpdate" editable="true" layoutX="131.0" layoutY="14.0"
+                                          onAction="#selectOwnerUpdateTel"
+                                          onKeyReleased="#bringMySQLCNPOwnerForTelupdate" prefWidth="150.0"/>
+                                <Label fx:id="lblCNPOwnerpdate" layoutX="22.0" layoutY="18.0" prefHeight="17.0"
+                                       prefWidth="102.0" text="Select CNP Owner"/>
+                                <Label fx:id="lblNumeOwnerUpdate" layoutX="22.0" layoutY="57.0" prefHeight="17.0"
+                                       prefWidth="89.0" text="Nume Owner"/>
+                                <Label fx:id="lblPrenumeOwnerUpdate" layoutX="22.0" layoutY="90.0"
+                                       text="Prenume Owner"/>
+                                <TextField fx:id="txtNumeOwnerUpdate" layoutX="132.0" layoutY="53.0"/>
+                                <TextField fx:id="txtPrenumeOwnerUpdate" layoutX="132.0" layoutY="86.0"/>
+                                <TextField fx:id="txtTelActualOwner" layoutX="132.0" layoutY="125.0"/>
+                                <Button fx:id="btnUpdateTelOwner" layoutX="315.0" layoutY="14.0" mnemonicParsing="false"
+                                        onAction="#updateTelOwner" prefHeight="25.0" prefWidth="147.0"
+                                        text="Update Telefon Owner"/>
+                                <Label fx:id="lblTelactualOwner" layoutX="22.0" layoutY="129.0" prefHeight="17.0"
+                                       prefWidth="84.0" text="Telefon Actual"/>
+                                <Label fx:id="lblNewPhoneOwner" layoutX="19.0" layoutY="182.0" text="New Phone Number"/>
+                                <TextField fx:id="txtTelOwnerUpdated" layoutX="133.0" layoutY="178.0"/>
+                                <Label fx:id="lblNewStreetOwner" layoutX="19.0" layoutY="211.0" text="New Street Name"/>
+                                <TextField fx:id="txtNewStreetOwnerName" layoutX="132.0" layoutY="207.0"/>
+                                <Button fx:id="btnUpdateStreetOwner" layoutX="315.0" layoutY="53.0"
+                                        mnemonicParsing="false" onAction="#updateStreetOwner" prefHeight="25.0"
+                                        prefWidth="147.0" text="Update Street Owner"/>
+                                <TextField fx:id="txtNewHouseNrOwnerName" layoutX="132.0" layoutY="239.0"/>
+                                <Label fx:id="lblNewHouseNrOwner" layoutX="20.0" layoutY="243.0" text="New House Nr"/>
+                                <Button fx:id="btnUpdateHouseNrOwner" layoutX="315.0" layoutY="92.0"
+                                        mnemonicParsing="false" onAction="#updateHouseNrOwner" prefHeight="25.0"
+                                        prefWidth="149.0" text="Update House Nr Owner"/>
+                                <TextField fx:id="txtNewBIOwnerName" layoutX="132.0" layoutY="270.0"/>
+                                <Label fx:id="lblNewBIOwner" layoutX="20.0" layoutY="279.0" text="New BI "/>
+                                <Button fx:id="btnUpdateBIOwner" layoutX="315.0" layoutY="130.0" mnemonicParsing="false"
+                                        onAction="#updateBIOwner" prefHeight="25.0" prefWidth="149.0"
+                                        text="Update BI Owner"/>
+                                <TextField fx:id="txtNewCityOwnerName" layoutX="132.0" layoutY="302.0"/>
+                                <Label fx:id="lblNewCityOwner" layoutX="20.0" layoutY="306.0" text="New City "/>
+                                <Button fx:id="btnUpdateCityIOwner" layoutX="313.0" layoutY="166.0"
+                                        mnemonicParsing="false" onAction="#updateCityOwner" prefHeight="25.0"
+                                        prefWidth="149.0" text="Update City Owner"/>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+</Pane>
