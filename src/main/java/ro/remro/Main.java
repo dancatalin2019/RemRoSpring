@@ -1,18 +1,12 @@
 package ro.remro;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTBookmark;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import ro.remro.javafx.JavaFxApplication;
-import ro.remro.model.Client;
-import ro.remro.model.Remorca;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,42 +20,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         Application.launch(JavaFxApplication.class, args);
-        Client client1 = new Client();
-        client1.setC_Nume("Gligor");
-        client1.setC_Nume("Ciprian");
-        Remorca rem1 = new Remorca();
-        //remorcaRepository.save(entityManager, rem1);
-        //ClientRepository.save(Client, client1);
-
-
-      /*  Remorca rem1 = new Remorca();
-        rem1.setNr_Inmatriculare("B71TRE");
-        rem1.setMasa_Utila(500);
-        rem1.setMasa_Maxima(700);
-        rem1.setModel("Opel");
-        rem1.setNr_Identificare("xjz");
-
-        Remorca rem2 = new Remorca();
-        rem2.setNr_Inmatriculare("B72TRE");
-        rem2.setMasa_Utila(500);
-        rem2.setMasa_Maxima(700);
-        rem2.setModel("Opel");
-        rem2.setNr_Identificare("xjz");
-
-
-
-       remorcaRepository.save(entityManager, rem1);
-
-//        remorcaRepository.save(entityManager, rem2);
-
-        for (Remorca r : remorcaRepository.findAll(entityManager)) {
-            System.out.println(r);
-        }
-        System.out.println("filter");
-
-        for (Remorca r : remorcaRepository.findByName(entityManager, "B7%")) {
-            System.out.println(r);
-        }
+        /*
 
         //Write the Document in file system
         FileOutputStream out = new FileOutputStream(new File("remrotest4.docx"));

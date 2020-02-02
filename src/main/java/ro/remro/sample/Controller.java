@@ -21,7 +21,6 @@ import java.util.List;
 @FxmlView("sample.fxml")
 public class Controller {
     public PasswordField pswfield;
-    public TextField txtfield;
     public Label lblName;
     public Label lblPasswaor;
     public Button btnLogin;
@@ -100,7 +99,7 @@ public class Controller {
     public TextField txtNumeClientUpdate;
     public TextField txtPrenumeClientUpdate;
     public TextField txtTelActualClient;
-    public Button btnUpdateTelClient;
+    public Button btnUpdateClient;
     public Label lblTelactualClient;
     public TextField txtTelClientUpdated;
     public AnchorPane tabAnchorPaneUpdateClientandOwner;
@@ -152,10 +151,6 @@ public class Controller {
     public TextField txtHousNrCllientUpdate;
     public TextField txtBICllientUpdate;
     public TextField txtCityCllientUpdate;
-    public Button btnUpdateHouseNrClient;
-    public Button btnUpdateStreetClient;
-    public Button btnUpdateBIClient;
-    public Button btnUpdateCityClient;
     public Label lblStreetClient;
     public TextField txtStreetClient;
     public Label lblCityClient;
@@ -164,26 +159,28 @@ public class Controller {
     public TextField txtHouseNrClient;
 
 
+    private boolean isLoggedIn = false;
+
     @Autowired
     private RemorcaRepository remorcaRepository;
     @Autowired
-    private ClientRepository clientRepository1;
+    private ClientRepository clientRepository;
     @Autowired
     private CarRepository carRepository;
     @Autowired
     private AntreprenorRepository antreprenorRepository;
 
     @Autowired
-    public Controller(RemorcaRepository remorcaRepository, ClientRepository clientRepository1, CarRepository carRepository, AntreprenorRepository antreprenorRepository) {
+    public Controller(RemorcaRepository remorcaRepository, ClientRepository clientRepository, CarRepository carRepository, AntreprenorRepository antreprenorRepository) {
         this.remorcaRepository = remorcaRepository;
-        this.clientRepository1 = clientRepository1;
+        this.clientRepository = clientRepository;
         this.carRepository = carRepository;
         this.antreprenorRepository = antreprenorRepository;
     }
 
     public void initialize() {
-       tabPane.getTabs().remove(tabMain);
-       tabPane.getTabs().remove(tabLogin);
+        tabPane.getTabs().remove(tabMain);
+        tabPane.getTabs().remove(tabLogin);
         tabPane.getTabs().remove(tabAdaugClient);
         tabPane.getTabs().remove(tabAdaugCar);
         tabPane.getTabs().remove(tabDeleteCar);
@@ -192,19 +189,6 @@ public class Controller {
         tabPane.getTabs().remove(tabAdaugRemorca);
         tabPane.getTabs().remove(tabAddOwner);
         tabPane.getTabs().remove(tabUpdateOwner);
-
-
-        //remorcaRepository.findAll();
-        //remorcaRepository.findByName("B62TRE");
-        //clientRepository1.findAll();
-        //clientRepository1.findCNP("1750520020044");
-        //clientRepository1.FindClientbyCMP("1750520020044");
-        //clientRepository1.DeleteClientbyCMP("1750520020044");
-        //clientRepository1.updateTelefon("173547");
-        //remorcaRepository.findByName("B62TRE");
-        //remorcaRepository.DeleteRemorcabyNrInmatriculare("B62TRE");
-
-
     }
 
 
@@ -225,7 +209,7 @@ public class Controller {
         if (lblName.getTextFill().equals(Color.BLACK) && lblPasswaor.getTextFill().equals(Color.BLACK)) {
             tabPane.getTabs().add(tabMain);
             tabPane.getTabs().remove(tabLogin);
-
+            isLoggedIn = true;
         }
 
     }
@@ -236,6 +220,7 @@ public class Controller {
 
     public void logoutUser(ActionEvent actionEvent) {
         tabPane.getTabs().clear();
+        isLoggedIn = false;
     }
 
 
@@ -258,16 +243,12 @@ public class Controller {
             txtFieldUtilWeigth1.setText(String.valueOf(remorca.getMasa_Utila()));
         }
     }
-    /*public void openLogInWindow(ActionEvent actionEvent) {
-        tabPane.getTabs().add(tabLogin);
-    }
-
-    public void logoutUser(ActionEvent actionEvent) {
-        tabPane.getTabs().clear();*/
-
 
     public void openTabAddClient(ActionEvent actionEvent) {
-tabPane.getTabs().add(tabAdaugClient);
+        if (isLoggedIn) {
+            tabPane.getTabs().clear();
+            tabPane.getTabs().add(tabAdaugClient);
+        }
     }
 
     public void saveClient(ActionEvent actionEvent) {
@@ -280,8 +261,16 @@ tabPane.getTabs().add(tabAdaugClient);
         client.setC_City(txtCityClient.getText());
         client.setC_House_nr(txtHouseNrClient.getText());
         client.setC_Street(txtStreetClient.getText());
-        clientRepository1.save(client);
+        clientRepository.save(client);
 
+        txtNumeClient.clear();
+        txtPrenumeClient.clear();
+        txtSerieBuletin.clear();
+        txtCNPClient.clear();
+        txtTelClient.clear();
+        txtCityClient.clear();
+        txtHouseNrClient.clear();
+        txtStreetClient.clear();
     }
 
     public void saveCar(ActionEvent actionEvent) {
@@ -291,15 +280,24 @@ tabPane.getTabs().add(tabAdaugClient);
         car.setModel(txtCarOem.getText());
         carRepository.save(car);
 
+        txtCarNumber.clear();
+        txtCarRegNr.clear();
+        txtCarOem.clear();
+
     }
 
     public void openTabAddCar(ActionEvent actionEvent) {
-        tabPane.getTabs().add(tabAdaugCar);
+        if (isLoggedIn) {
+            tabPane.getTabs().clear();
+            tabPane.getTabs().add(tabAdaugCar);
+        }
+
     }
+
     public void bringfromMySqlClient(KeyEvent keyEvent) {
         comboBoxClientCNP.getItems().clear();
         if (comboBoxClientCNP.getEditor().getText().length() >= 2) {
-            List<Client> clientList = clientRepository1.findByCnpContaining(comboBoxClientCNP.getEditor().getText());
+            List<Client> clientList = clientRepository.findByCnpContaining(comboBoxClientCNP.getEditor().getText());
 
             comboBoxClientCNP.getItems()
                     .addAll(clientList);
@@ -307,31 +305,35 @@ tabPane.getTabs().add(tabAdaugClient);
         }
     }
 
-    public void getSelectedClient(ActionEvent actionEvent)
-    { if (comboBoxClientCNP.getSelectionModel().getSelectedIndex() != -1) {
-        try
-        {Client client = (Client) comboBoxClientCNP.getSelectionModel().getSelectedItem();
-            txtCNPClient.setText(client.getCnp());
-            txtFieldClientSurname.setText(String.valueOf(client.getC_Prenume()));
-            txtFieldNumeClient.setText(String.valueOf(client.getC_Nume()));
+    public void getSelectedClient(ActionEvent actionEvent) {
+        if (comboBoxClientCNP.getSelectionModel().getSelectedIndex() != -1) {
+            try {
+                Client client = (Client) comboBoxClientCNP.getSelectionModel().getSelectedItem();
+                txtCNPClient.setText(client.getCnp());
+                txtFieldClientSurname.setText(String.valueOf(client.getC_Prenume()));
+                txtFieldNumeClient.setText(String.valueOf(client.getC_Nume()));
+            } catch (Exception ex) {
+                System.out.println("Something wrong");
+            }
         }
-        catch (Exception ex)
-        { System.out.println("Something wrong"); }
-    }}
+    }
 
     public void openTabDeleteRemorca(ActionEvent actionEvent) {
-        tabPane.getTabs().add(tabDeleteREmorca);
+        if (isLoggedIn) {
+            tabPane.getTabs().clear();
+            tabPane.getTabs().add(tabDeleteREmorca);
+        }
     }
 
-    public void getSelectedRemorcaforDelete(ActionEvent actionEvent)
-    { if (cmbCartoDelete.getSelectionModel().getSelectedIndex() != -1)
-    { try
-    { Remorca remorca = (Remorca) cmbCartoDelete.getSelectionModel().getSelectedItem();
-    txtRemorcadeleted.setText(remorca.getCarNumber());
-       }
-    catch (Exception ex)
-    { System.out.println("Something wrong"); }
-    }
+    public void getSelectedRemorcaforDelete(ActionEvent actionEvent) {
+        if (cmbCartoDelete.getSelectionModel().getSelectedIndex() != -1) {
+            try {
+                Remorca remorca = (Remorca) cmbCartoDelete.getSelectionModel().getSelectedItem();
+                txtRemorcadeleted.setText(remorca.getCarNumber());
+            } catch (Exception ex) {
+                System.out.println("Something wrong");
+            }
+        }
     }
 
 
@@ -343,6 +345,7 @@ tabPane.getTabs().add(tabAdaugClient);
             cmbCartoDelete.getItems()
                     .addAll(remorcaList);
             cmbCartoDelete.show();
+
         }
     }
 
@@ -357,7 +360,7 @@ tabPane.getTabs().add(tabAdaugClient);
     }
 
     public void saveRemorcainMySQL(ActionEvent actionEvent) {
-        Remorca remorca=new Remorca();
+        Remorca remorca = new Remorca();
         remorca.setCarNumber(txtNrnmatriculareRem.getText());
         remorca.setModel(txtModelRem.getText());
         remorca.setMasa_Maxima(txtMasaMaximaRem.getText());
@@ -366,16 +369,33 @@ tabPane.getTabs().add(tabAdaugClient);
     }
 
     public void openTabAddRemorca(ActionEvent actionEvent) {
-        tabPane.getTabs().add(tabAdaugRemorca);
+        if (isLoggedIn) {
+            tabPane.getTabs().clear();
+            tabPane.getTabs().add(tabAdaugRemorca);
+        }
     }
 
-    public void updateTelClient(ActionEvent actionEvent) {
-//        clientRepository1.updateTelefon(comboCNPClientUpdate.getEditor().getText(),txtTelClientUpdated.getText());
+    public void updateClient(ActionEvent actionEvent) {
+        Client client = (Client) comboCNPClientUpdate.getSelectionModel().getSelectedItem();
+
+        client.setC_Nume(txtNumeClientUpdate.getText());
+        client.setC_Prenume(txtPrenumeClientUpdate.getText());
+
+        client.setC_nr_Telefon(txtTelActualClient.getText());
+        client.setC_Street(txtStreetCleintUpdate.getText());
+        client.setC_House_nr(txtHousNrCllientUpdate.getText());
+        client.setSerie_Buletin(txtBICllientUpdate.getText());
+        client.setC_City(txtCityCllientUpdate.getText());
+
+        clientRepository.save(client);
 
     }
 
     public void openTabUpdateClientandOwner(ActionEvent actionEvent) {
-        tabPane.getTabs().add(tabUpdateClientandOwner);
+        if(isLoggedIn) {
+            tabPane.getTabs().clear();
+            tabPane.getTabs().add(tabUpdateClientandOwner);
+        }
     }
 
     public void selectClientUpdateTel(ActionEvent actionEvent) {
@@ -389,6 +409,10 @@ tabPane.getTabs().add(tabAdaugClient);
             txtPrenumeClientUpdate.setText(String.valueOf(client.getC_Prenume()));
 
             txtTelActualClient.setText(String.valueOf(client.getC_nr_Telefon()));
+            txtStreetCleintUpdate.setText(client.getC_Street());
+            txtHousNrCllientUpdate.setText(client.getC_House_nr());
+            txtBICllientUpdate.setText(client.getSerie_Buletin());
+            txtCityCllientUpdate.setText(client.getC_City());
         }
 
     }
@@ -396,25 +420,17 @@ tabPane.getTabs().add(tabAdaugClient);
     public void bringMySQLCNPClinetforTelupdate(KeyEvent keyEvent) {
         comboCNPClientUpdate.getItems().clear();
         if (comboCNPClientUpdate.getEditor().getText().length() >= 2) {
-            List<Client> clientList = clientRepository1.findByCnpContaining(comboCNPClientUpdate.getEditor().getText());
+            List<Client> clientList = clientRepository.findByCnpContaining(comboCNPClientUpdate.getEditor().getText());
 
             comboCNPClientUpdate.getItems()
                     .addAll(clientList);
-            txtTelClientUpdated.requestFocus();
             comboCNPClientUpdate.show();
 
         }
     }
 
-    public void calculeazaSuma(ActionEvent actionEvent) {
-
-
-
-
-    }
-
     public void saveOwnerinMySQL(ActionEvent actionEvent) {
-        Antreprenor antreprenor=new Antreprenor();
+        Antreprenor antreprenor = new Antreprenor();
         antreprenor.setA_nume(txtOwnerName.getText());
         antreprenor.setA_prenume(txtOwnerSurname.getText());
         antreprenor.setA_telefon(txtAddOwnerPhone.getText());
@@ -424,12 +440,21 @@ tabPane.getTabs().add(tabAdaugClient);
         antreprenor.setA_nr_Casa(txtOwnerHouseNr.getText());
         antreprenor.setA_city(txtOwnerCity.getText());
         antreprenorRepository.save(antreprenor);
-
-
+        txtOwnerName.clear();
+        txtOwnerSurname.clear();
+        txtAddOwnerPhone.clear();
+        txtOwnerCNP.clear();
+        txtOwnerBI.clear();
+        txtOwnerStreet.clear();
+        txtOwnerHouseNr.clear();
+        txtOwnerCity.clear();
     }
 
     public void openTabAddOwner(ActionEvent actionEvent) {
-        tabPane.getTabs().add(tabAddOwner);
+        if(isLoggedIn) {
+            tabPane.getTabs().clear();
+            tabPane.getTabs().add(tabAddOwner);
+        }
     }
 
     public void selectOwnerUpdateTel(ActionEvent actionEvent) {
@@ -440,12 +465,14 @@ tabPane.getTabs().add(tabAdaugClient);
 
             txtNumeOwnerUpdate.setText(antreprenor.getA_nume());
             txtPrenumeOwnerUpdate.setText(String.valueOf(antreprenor.getA_prenume()));
-
             txtTelActualOwner.setText(String.valueOf(antreprenor.getA_telefon()));
+            txtNewStreetOwnerName.setText(antreprenor.getStrada());
+            txtNewHouseNrOwnerName.setText(antreprenor.getA_nr_Casa());
+            txtNewBIOwnerName.setText(antreprenor.getSerie_Buletin());
+            txtNewCityOwnerName.setText(antreprenor.getA_city());
         }
 
     }
-        
 
 
     public void bringMySQLCNPOwnerForTelupdate(KeyEvent keyEvent) {
@@ -455,49 +482,33 @@ tabPane.getTabs().add(tabAdaugClient);
 
             comboCNPOwnerUpdate.getItems()
                     .addAll(ownerList);
-            txtTelOwnerUpdated.requestFocus();
+
             comboCNPOwnerUpdate.show();
 
         }
     }
 
-    public void updateTelOwner(ActionEvent actionEvent) {
-//        antreprenorRepository.updateTelefonOwner(comboCNPOwnerUpdate.getEditor().getText(),txtTelOwnerUpdated.getText());
+    public void updateOwner(ActionEvent actionEvent) {
+        Antreprenor antreprenor = (Antreprenor) comboCNPOwnerUpdate.getSelectionModel().getSelectedItem();
+
+        antreprenor.setA_nume(txtNumeOwnerUpdate.getText());
+        antreprenor.setA_prenume(txtPrenumeOwnerUpdate.getText());
+        antreprenor.setA_telefon(txtTelActualOwner.getText());
+        antreprenor.setStrada(txtNewStreetOwnerName.getText());
+        antreprenor.setA_nr_Casa(txtNewHouseNrOwnerName.getText());
+        antreprenor.setSerie_Buletin(txtNewBIOwnerName.getText());
+        antreprenor.setA_city(txtNewCityOwnerName.getText());
+
+        antreprenorRepository.save(antreprenor);
 
     }
 
     public void openTabUpdateOwner(ActionEvent actionEvent) {
-        tabPane.getTabs().add(tabUpdateOwner);
+        if(isLoggedIn) {
+            tabPane.getTabs().clear();
+            tabPane.getTabs().add(tabUpdateOwner);
+        }
     }
 
-    public void updateStreetOwner(ActionEvent actionEvent) {
-//        antreprenorRepository.updateOwnerStreet(comboCNPOwnerUpdate.getEditor().getText(),txtNewStreetOwnerName.getText());
-
-    }
-
-    public void updateHouseNrOwner(ActionEvent actionEvent) {
-//        antreprenorRepository.updateHouseNrOwner(comboCNPOwnerUpdate.getEditor().getText(),txtNewHouseNrOwnerName.getText());
-    }
-
-    public void updateBIOwner(ActionEvent actionEvent) {
-//        antreprenorRepository.updateBIOwner(comboCNPOwnerUpdate.getEditor().getText(),txtNewBIOwnerName.getText());
-    }
-
-    public void updateCityOwner(ActionEvent actionEvent) {
-//        antreprenorRepository.updateCityOwner(comboCNPOwnerUpdate.getEditor().getText(),txtNewCityOwnerName.getText());
-    }
-
-    public void updateHouseNrClient(ActionEvent actionEvent) {
-    }
-
-    public void updateStreetClient(ActionEvent actionEvent) {
-//        clientRepository1.updateStreetClient(comboCNPClientUpdate.getEditor().getText(),txtStreetCleintUpdate.getText());
-    }
-
-    public void updateBIClient(ActionEvent actionEvent) {
-    }
-
-    public void updateCityClient(ActionEvent actionEvent) {
-    }
 }
 
