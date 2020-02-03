@@ -132,8 +132,8 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="318.0" prefWidth="369.0">
                             <children>
-                                <PasswordField fx:id="pswfield" layoutX="115.0" layoutY="100.0" />
                                 <TextField fx:id="txtfieldUserName" layoutX="115.0" layoutY="52.0" />
+                                <PasswordField fx:id="pswfield" layoutX="115.0" layoutY="100.0" />
                                 <Label fx:id="lblName" layoutX="14.0" layoutY="52.0" prefHeight="39.0" prefWidth="97.0" text="User Name" />
                                 <Label fx:id="lblPasswaor" layoutX="14.0" layoutY="106.0" prefHeight="27.0" prefWidth="96.0" text="Password" />
                                 <Button fx:id="btnLogin" layoutX="130.0" layoutY="140.0" mnemonicParsing="false" onAction="#loginUser" prefHeight="39.0" prefWidth="120.0" text="Login" />
@@ -187,7 +187,7 @@
                                         <Font size="14.0" />
                                     </font>
                                 </Label>
-                                <Button fx:id="btnGenerateContract" layoutX="843.0" layoutY="13.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="122.0" text="Generate Contract" textFill="#5016ce">
+                                <Button fx:id="btnGenerateContract" layoutX="843.0" layoutY="13.0" mnemonicParsing="false" onAction="#generateContract" prefHeight="39.0" prefWidth="122.0" text="Generate Contract" textFill="#5016ce">
                                     <font>
                                         <Font name="System Bold Italic" size="12.0" />
                                     </font>

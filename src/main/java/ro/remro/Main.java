@@ -58,18 +58,18 @@ caut in document bookmarurile (e.g, caut numar_inmatriculare, si cu POI pot scri
         System.out.println("createparagraph.docx written successfully");
 
 */
-
-        try {
-
-            openFile("E:\\Projects\\udacity_java\\other_studs\\RemRoSpring-master\\src\\main\\resources\\META-INF\\contract.docx");
-            insertAtBookmark("nr_remorca", "B60TRE");
-            saveAs("E:\\Projects\\udacity_java\\other_studs\\RemRoSpring-master\\src\\main\\resources\\META-INF\\contract.docx");
-        } catch (Exception ex) {
-            System.out.println("Caught a: " + ex.getClass().getName());
-            System.out.println("Message: " + ex.getMessage());
-            System.out.println("Stacktrace follows:.....");
-            ex.printStackTrace(System.out);
-        }
+//
+//        try {
+//
+//            openFile("E:\\Projects\\udacity_java\\other_studs\\RemRoSpring-master\\src\\main\\resources\\META-INF\\contract.docx");
+//            insertAtBookmark("nr_remorca", "B60TRE");
+//            saveAs("E:\\Projects\\udacity_java\\other_studs\\RemRoSpring-master\\src\\main\\resources\\META-INF\\contract.docx");
+//        } catch (Exception ex) {
+//            System.out.println("Caught a: " + ex.getClass().getName());
+//            System.out.println("Message: " + ex.getMessage());
+//            System.out.println("Stacktrace follows:.....");
+//            ex.printStackTrace(System.out);
+//        }
     }
 
     private static XWPFDocument document = null;

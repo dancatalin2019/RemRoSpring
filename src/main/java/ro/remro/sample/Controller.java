@@ -1,5 +1,7 @@
 package ro.remro.sample;
 
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfWriter;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
@@ -14,6 +16,8 @@ import ro.remro.model.Client;
 import ro.remro.model.Remorca;
 import ro.remro.repository.*;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.List;
 
 
@@ -510,5 +514,32 @@ public class Controller {
         }
     }
 
+    public void generateContract(ActionEvent actionEvent) throws FileNotFoundException, DocumentException {
+        Document document = new Document();
+        PdfWriter.getInstance(document, new FileOutputStream("e:\\iTextHelloWorld.pdf"));
+
+        document.open();
+        Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 13, BaseColor.BLACK);
+        Chunk chunk = new Chunk("CONTRACT DE INCHIRIERE VEHICUL\n", font);
+        Paragraph para1 = new Paragraph(chunk);
+        para1.setAlignment(Paragraph.ALIGN_CENTER);
+
+
+
+        chunk = new Chunk("Nr.______/______________/Ora:__________\n");
+        para1.add(chunk);
+        document.add(para1);
+
+        font = FontFactory.getFont(FontFactory.HELVETICA, 10, BaseColor.BLACK);
+        chunk = new Chunk("(1) Predarea-primirea vehiculului inchiriat se va face la termenul convenit de parti, dupa semnarea prezentului contract si va fi consemnata in procesul verbal de predare-primire care constituie Anexa nr.2 la prezentul contract si face parte integranta din acesta.\n" +
+                "(2) Vehiculul se pune la dispozitia Locatarului impreuna cu talonul, politele de asigurare si condițile generale și speciale aferente acestora si toate celelalte dotari corespunzatoare, ce vor fi inventariate in procesul verbal de predare-primire. Vehiculul intruneste toate conditiile tehnice de folosire, fiind in stare normala de functionare si neavand defectiuni si lipsuri.\n" +
+                "(3) Locul predarii-primirii vehiculului este la punctul de lucru a locatorului. Locatarul poate sa returneze vehiculul la locul in care l-a primit, sau in orice alta locatie indicata de Locator.   \n",
+                font);
+        para1 = new Paragraph(chunk);
+        para1.setAlignment(Paragraph.ALIGN_JUSTIFIED);
+
+        document.add(para1);
+        document.close();
+    }
 }
 
